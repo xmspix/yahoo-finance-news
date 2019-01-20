@@ -1,10 +1,9 @@
 'use strict'
 const fs = require('fs');
-const request = require('request');
 const requestPromise = require('request-promise');
 var xmlJs = require("xml-js");
 
-module.exports.yahoo_finance_news = async function(symbols, callback) {
+module.exports.get = async function(symbols, callback) {
   if (Array.isArray(symbols) == false) {
     const symbol = [];
     symbol.push(symbols)
