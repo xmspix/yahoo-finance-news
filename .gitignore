@@ -1,0 +1,4 @@
+# Ignore files and folders
+
+/node_modules
+test.json

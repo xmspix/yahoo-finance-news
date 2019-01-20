@@ -1,0 +1,22 @@
+{
+  "name": "yahoo-finance-news",
+  "version": "1.0.0",
+  "description": "Get finance news from yahoo by symbol or multiple symbols",
+  "main": "index.js",
+  "scripts": {
+    "test-s": "node -e require('./index').yahoo_finance_news('AAPL',function(data){console.log(data);})",
+    "test-m": "node -e require('./index').yahoo_finance_news(['AAPL','NVDA','MSFT'],function(data){console.log(data);})"
+  },
+  "keywords": [
+    "yahoo",
+    "finance",
+    "news"
+  ],
+  "author": "Mark Stoler",
+  "license": "MIT",
+  "dependencies": {
+    "request": "^2.88.0",
+    "request-promise": "^4.2.2",
+    "xml-js": "^1.6.9"
+  }
+}
