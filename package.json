@@ -1,6 +1,6 @@
 {
   "name": "yahoo-finance-news",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Get finance news from yahoo by symbol or multiple symbols",
   "main": "index.js",
   "scripts": {
