@@ -4,23 +4,17 @@ const requestPromise = require('request-promise');
 var xmlJs = require("xml-js");
 
 module.exports.get = async function(symbols, callback) {
-  if (Array.isArray(symbols) == false) {
-    const symbol = [];
-    symbol.push(symbols)
-    next(symbol)
-  } else {
-    next(symbols)
-  }
-
-  function next(symbols) {
-    const promises = symbols.map(symbol => requestPromise({
-      url: `https://feeds.finance.yahoo.com/rss/2.0/headline?s=${symbol}&region=US&lang=en-US`,
-      json: true,
-      transform: function(body) {
-        var options = {
-          compact: true,
-          ignoreComment: true
-        };
+  var symbols = symbols.split(',')
+  // console.log(symbols);
+  const promises = symbols.map(symbol => requestPromise({
+    url: `https://feeds.finance.yahoo.com/rss/2.0/headline?s=${symbol}&region=US&lang=en-US`,
+    json: true,
+    transform: function(body) {
+      var options = {
+        compact: true,
+        ignoreComment: true
+      };
+      try {
         var result = xmlJs.xml2json(body, options);
         var json = JSON.parse(result);
         var title = json.rss.channel.item.map(item => item.title._text)
@@ -41,16 +35,19 @@ module.exports.get = async function(symbols, callback) {
           'items': tmp,
           'symbol': symbol
         }];
+      } catch (e) {
+
       }
-    }));
-    Promise.all(promises).then((data) => {
-      const results = [].concat(...data.map(Object.values));
-      Promise.all(results).then((completed) => {
-        // fs.writeFileSync('test.json', JSON.stringify(completed));
-        if (callback) {
-          callback(JSON.stringify(completed))
-        }
-      });
-    })
-  }
+    }
+  }));
+
+  Promise.all(promises).then((data) => {
+    const results = [].concat(...data.map(Object.values));
+    Promise.all(results).then((completed) => {
+      // fs.writeFileSync('test.json', JSON.stringify(completed));
+      if (callback) {
+        callback(JSON.stringify(completed))
+      }
+    });
+  })
 }

@@ -1,11 +1,11 @@
 {
   "name": "yahoo-finance-news",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Get finance news from yahoo by symbol or multiple symbols",
   "main": "index.js",
   "scripts": {
     "test-s": "node -e require('./index').get('AAPL',function(data){console.log(data);})",
-    "test-m": "node -e require('./index').get(['AAPL','NVDA','MSFT'],function(data){console.log(data);})"
+    "test-m": "node -e require('./index').get('AAPL,NVDA,MSFT',function(data){console.log(data);})"
   },
   "keywords": [
     "yahoo",
